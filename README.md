@@ -1,5 +1,7 @@
 # YagniJsonEncoder
 
+[![Build Status](https://travis-ci.org/ianks/yagni_json_encoder.svg?branch=master)](https://travis-ci.org/ianks/yagni_json_encoder)
+
 This gem overrides the [default ActiveSupport JSON
 encoder](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/json/encoding.rb)
 with a faster encoder which makes a few assumptions about your app.

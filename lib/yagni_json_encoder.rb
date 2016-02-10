@@ -27,3 +27,5 @@ class YagniJsonEncoder
     end
   end
 end
+
+require 'activesupport/json_encoder'

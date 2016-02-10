@@ -1,12 +1,49 @@
 # YagniJsonEncoder
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/yagni_json_encoder`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem overrides the [default ActiveSupport JSON
+encoder](https://github.com/rails/rails/blob/master/activesupport/lib/active_support/json/encoding.rb)
+with a faster encoder which makes a few assumptions about your app.
 
-TODO: Delete this and the text above, and describe your gem
+1. You do not need the escape HTML entities in your JSON
+2. You do not need any special escaping besides that provided by the JSON
+   standard.
+
+Under the hood, this app removes Rails' special JSON escaping, and relies on
+[Oj](https://github.com/ohler55/oj) to do the heavy lifting of JSON encoding.
+
+
+## Why?
+
+By default, Rails plays it safe and escapes `\u2028` and `\u2029`. In order to
+do this, a `#gsub` call (O(n) time complexity) is required on every string it
+encounters. I do not interface with old browsers, so escaping these characters
+is useless to me. Instead, we dont escape these characters, and let Oj do all
+the heavy JSON encoding work.
+
+
+## Perfomance (show me the money!)
+
+In a real Rails app, I benchmarked `Tips.all.to_json` with the different
+encoders. On average, YagniJsonEncoder is ~2x as fast. However, you could
+see bigger gains if you models are text-heavy.
+
+```
+Calculating -------------------------------------
+    YagniJsonEncoder    10.000  i/100ms
+      JSONGemEncoder     5.000  i/100ms
+-------------------------------------------------
+    YagniJsonEncoder    105.536  (± 6.6%) i/s -    530.000
+      JSONGemEncoder     50.605  (± 4.0%) i/s -    255.000
+
+Comparison:
+    YagniJsonEncoder:      105.5 i/s
+      JSONGemEncoder:       50.6 i/s - 2.09x slower
+```
+
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Just add this line to your application's Gemfile:
 
 ```ruby
 gem 'yagni_json_encoder'
@@ -20,17 +57,8 @@ Or install it yourself as:
 
     $ gem install yagni_json_encoder
 
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/yagni_json_encoder.
-
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/ianks/yagni_json_encoder.

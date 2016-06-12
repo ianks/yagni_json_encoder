@@ -27,7 +27,7 @@ the heavy JSON encoding work.
 
 In a real Rails app, I benchmarked `Tips.all.to_json` with the different
 encoders. On average, YagniJsonEncoder is ~2x as fast. However, you could
-see bigger gains if you models are text-heavy.
+see bigger gains if your models are text/string-heavy.
 
 ```
 Calculating -------------------------------------

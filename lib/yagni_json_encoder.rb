@@ -1,16 +1,16 @@
 require 'oj'
+Oj.mimic_JSON
 
 class YagniJsonEncoder
   attr_reader :options
 
   def initialize(options = nil)
     @options = options || {}
+    @options.freeze
   end
 
   def encode(value)
-    Oj.dump value.as_json(options.dup),
-            mode: :compat,
-            quirks_mode: true
+    Oj.dump value.as_json(options)
   end
 end
 

@@ -16,7 +16,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "pry"
 
-  spec.add_dependency "oj", "~> 2.14"
+  spec.add_dependency "oj", "~> 2.18"
   spec.add_dependency 'activesupport', '>= 4.1.0'
 end

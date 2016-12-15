@@ -332,7 +332,7 @@ class TestJSONEncoding < ActiveSupport::TestCase
   end
 
   def test_nil_true_and_false_represented_as_themselves
-    assert_equal nil,   nil.as_json
+    assert_nil nil.as_json
     assert_equal true,  true.as_json
     assert_equal false, false.as_json
   end
@@ -373,12 +373,9 @@ class TestJSONEncoding < ActiveSupport::TestCase
     h[:foo] = "hello"
     h[:bar] = "world"
 
-    assert_equal <<EXPECTED.chomp, JSON.pretty_generate(h)
-{
-  "foo": "hello",
-  "bar": "world"
-}
-EXPECTED
+    expected = "{\n  \"foo\" : \"hello\",\n  \"bar\" : \"world\"\n}"
+
+    assert_equal JSON.pretty_generate(h), expected
     assert_nil h.as_json_called
   end
 

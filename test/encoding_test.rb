@@ -1,11 +1,9 @@
-require 'active_support/json'
+require 'yagni_json_encoder'
 require 'active_support/time'
 require 'encoding_test_cases'
 require 'securerandom'
 require 'test_helper'
 require 'time_zone_test_helpers'
-
-require 'yagni_json_encoder'
 
 class TestJSONEncoding < ActiveSupport::TestCase
   include TimeZoneTestHelpers

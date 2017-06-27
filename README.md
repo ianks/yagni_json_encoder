@@ -1,5 +1,9 @@
 # YagniJsonEncoder
 
+## DEPRECATED: use OJ directly
+
+Oj now supports the ability to optimize Rails without any modifications. Read more about it [here](https://github.com/ohler55/oj/blob/master/pages/Rails.md)
+
 [![Build Status](https://travis-ci.org/ianks/yagni_json_encoder.svg?branch=master)](https://travis-ci.org/ianks/yagni_json_encoder)
 
 This gem overrides the [default ActiveSupport JSON
